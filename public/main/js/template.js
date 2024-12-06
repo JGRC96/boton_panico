@@ -1622,3 +1622,31 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 })
 
 
+
+// BARRA SECUNDARIA //
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleButton = document.querySelector('.toggle-btn-bar'); // Botón
+  const secondaryBar = document.querySelector('.secondary-bar'); // Barra secundaria
+  const icon = toggleButton.querySelector('span'); // Ícono dentro del botón
+
+  toggleButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Alternar clases de la barra secundaria
+    const isCollapsed = secondaryBar.classList.contains('collapsed');
+    secondaryBar.classList.toggle('collapsed', !isCollapsed);
+    secondaryBar.classList.toggle('expanded', isCollapsed);
+
+    // Actualizar el ícono según el estado
+    if (isCollapsed) {
+      icon.classList.remove('fa-arrow-right');
+      icon.classList.add('fa-arrow-left');
+    } else {
+      icon.classList.remove('fa-arrow-left');
+      icon.classList.add('fa-arrow-right');
+    }
+  });
+});
+
+
+

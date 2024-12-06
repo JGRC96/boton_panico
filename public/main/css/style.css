@@ -28,7 +28,7 @@ invoice
 profile
 calendar
 icon & divider
-box group
+box group 
 grid-stack
 date-paginator
 Nestable
@@ -119,6 +119,8 @@ body.layout-boxed {
   background-color: transparent;
   position: relative;
 }
+
+
 
 .wrapper:before,
 .wrapper:after {
@@ -26892,6 +26894,15 @@ Height property
   z-index: 820;
 }
 
+.content-wrapper-map {
+  -moz-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  margin-left: 270px;
+  z-index: 820;
+}
+
 .main-footer {
   -moz-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
   -o-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
@@ -26904,12 +26915,23 @@ Height property
 @media (min-width: 768px) {
 
   .sidebar-collapse .content-wrapper,
+  .sidebar-collapse .content-wrapper-map,
   .sidebar-collapse .main-footer {
     margin-left: 0;
   }
 }
 
 .content-wrapper {
+  min-height: 100%;
+  background-color: transparent;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.content-wrapper-map {
   min-height: 100%;
   background-color: transparent;
   -moz-transition: all 0.3s ease-in-out;
@@ -26948,7 +26970,11 @@ Height property
 }
 
 .fixed .content-wrapper {
-  padding-top: 10px;
+  padding-top: 0px;
+}
+
+.fixed .content-wrapper-map {
+  padding-top: 0px;
 }
 
 .fixed .right-side {
@@ -26969,6 +26995,10 @@ Height property
     padding-top: 55px;
   }
 
+  .fixed .content-wrapper-map {
+    padding-top: 55px;
+  }
+
   .fixed .right-side {
     padding-top: 125px;
   }
@@ -26978,7 +27008,8 @@ Height property
   max-width: 100%;
 }
 
-.hold-transition .content-wrapper,
+.hold-transition .content-wrapper, 
+.hold-transition .content-wrapper-map,
 .hold-transition .left-side,
 .hold-transition .main-footer,
 .hold-transition 
@@ -27008,6 +27039,11 @@ Height property
   margin-left: auto;
 }
 
+.layout-top-nav .content-wrapper-map .content {
+  padding: 10px 0px 0px 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
 .container>.content {
   padding: 10px 0px 0px 0px;
 }
@@ -28773,6 +28809,10 @@ body .main-header .navbar .nav>li.search-box>a:focus {
     margin-left: 80px;
   }
 
+  .sidebar-mini.sidebar-expanded-on-hover .content-wrapper-map {
+    margin-left: 80px;
+  }
+
   /* .sidebar-mini.sidebar-expanded-on-hover .main-header .navbar {
     margin-left: 270px;
   }
@@ -28790,6 +28830,11 @@ body .main-header .navbar .nav>li.search-box>a:focus {
   } */
 
   .sidebar-mini.sidebar-collapse .content-wrapper {
+    margin-left: 60px;
+    z-index: 840;
+  }
+
+  .sidebar-mini.sidebar-collapse .content-wrapper-map {
     margin-left: 60px;
     z-index: 840;
   }
@@ -28961,6 +29006,10 @@ body .main-header .navbar .nav>li.search-box>a:focus {
   }
 
   .control-sidebar-open .content-wrapper {
+    margin-right: 345px;
+  }
+
+  .control-sidebar-open .content-wrapper-map {
     margin-right: 345px;
   }
 
@@ -33789,6 +33838,7 @@ time {
   }
 
   .content-wrapper,
+  .content-wrapper-map,
   .main-footer,
   .right-side {
     margin-left: 0 !important;
@@ -33800,6 +33850,7 @@ time {
   }
 
   .fixed .content-wrapper,
+  .fixed .content-wrapper-map,
   .fixed .right-side {
     padding-top: 0 !important;
   }
@@ -44203,7 +44254,6 @@ img.online {
     align-items: center; 
     height: 50px;
   }
-
   .sidebar-header-sm a {
     color: #000000;
     font-size: 18px;
@@ -44216,4 +44266,97 @@ img.online {
     color: #007bff; 
   }
 }
+
+
+
+/* Barra secundaria */
+.secondary-bar {
+  position: fixed; /* Ajustar según diseño */
+  top: 0;
+  bottom: 0; /* Asegura que abarque toda la altura disponible */
+  width: 430px; /* Ancho expandido */
+  height: 100vh; /* Asegura que tome toda la altura de la ventana */
+  background-color: #fafbfd;
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+  overflow: visible; /* Permite que el botón sobresalga */
+  z-index: 825; /* Garantiza que esté encima de otros elementos */
+}
+
+.secondary-bar.collapsed {
+  width: 25px; /* Estado colapsado */
+}
+
+.container-full-map {
+  flex-grow: 1;
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: 430px;
+  padding: 10px;
+  z-index: 810; 
+}
+
+.secondary-bar.collapsed + .container-full-map {
+  margin-left: 25px; /* Espacio cuando la barra secundaria está colapsada */
+}
+
+.secondary-bar .secondary-content {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.secondary-bar.collapsed .secondary-content {
+  opacity: 0; /* Oculta el contenido */
+  pointer-events: none; /* Desactiva la interacción con el contenido */
+}
+
+/* Botón flotante */
+.toggle-btn-bar {
+  position: absolute;
+  top: 3%; /* Centrado verticalmente */
+  transform: translateY(-50%); /* Ajuste para centrar */
+  right: -15px; /* La mitad del botón sobresale */
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: none;
+  border-radius: 50px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para efecto flotante */
+  cursor: pointer;
+  z-index: 1001;
+  transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+
+/* Cambiar icono al pasar el ratón */
+.toggle-btn-bar:hover {
+  transform: translateY(-50%) scale(1.1); /* Pequeño efecto de zoom */
+}
+
+.toggle-btn-bar span {
+  font-size: 12px;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+@media (max-width: 767px) {
+
+  .content-wrapper-map {
+    margin-left: 0;
+  }
+  .container-full-map {
+    margin-left: 0 !important; /* Elimina el margen izquierdo */
+  }
+
+  .secondary-bar {
+    display: none; /* Oculta la barra lateral secundaria */
+  }
+
+  .toggle-btn-bar {
+    display: none; /* Oculta el botón flotante en pantallas pequeñas */
+  }
+}
+
+
 
